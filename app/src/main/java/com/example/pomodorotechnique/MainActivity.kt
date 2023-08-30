@@ -6,7 +6,10 @@ import android.content.Intent
 import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.core.content.ContextCompat
 import com.example.pomodorotechnique.databinding.ActivityMainBinding
+import java.util.*
 import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity() {
@@ -20,18 +23,42 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.imageview.setBackgroundResource(R.drawable.pomodoro_ico_gray)
+        binding.btnStart.setOnClickListener{
+            startStopTimer()
 
-        binding.btnStart.setOnClickListener{startStopTimer()}
+        }
+        binding.btnRestart.setOnClickListener{restartTimer()}
 
         serviceIntent = Intent(applicationContext, TimerService::class.java)
         registerReceiver(updateTime, IntentFilter(TimerService.TIMER_UPDATED))
     }
 
     private fun startStopTimer() {
-        if(timerStarted)
+        if(timerStarted){
             stopTimer()
-        else
+        }
+        else{
             startTimer()
+            binding.btnRestart.setVisibility(View.VISIBLE)
+            binding.layoutPomodoro.setBackgroundColor(ContextCompat.getColor(this, R.color.red_Primary))
+            binding.layoutTimer.setBackgroundResource(R.drawable.background_timer_red)
+            binding.btnStart.setBackgroundColor(ContextCompat.getColor(this, R.color.red_Primary))
+            binding.btnRestart.setBackgroundColor(ContextCompat.getColor(this, R.color.red_Primary))
+            binding.imageview.setBackgroundResource(R.drawable.pomodoro_ico)
+        }
+    }
+
+    private fun restartTimer(){
+        stopTimer()
+        time = 1500.0
+        binding.btnRestart.setVisibility(View.INVISIBLE)
+        binding.timerPomodoro.text = "25:00"
+        binding.layoutPomodoro.setBackgroundColor(ContextCompat.getColor(this, R.color.gray_Primary))
+        binding.layoutTimer.setBackgroundResource(R.drawable.background_timer_gray)
+        binding.btnStart.setBackgroundColor(ContextCompat.getColor(this, R.color.gray_Primary))
+        binding.btnRestart.setBackgroundColor(ContextCompat.getColor(this, R.color.gray_Primary))
+        binding.imageview.setBackgroundResource(R.drawable.pomodoro_ico_gray)
     }
 
     private fun startTimer(){

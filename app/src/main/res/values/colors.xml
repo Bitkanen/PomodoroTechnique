@@ -7,7 +7,15 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
     <color name="transparent_white">#B3FFFFFF</color>
-    <color name="redP">#d51920</color>
-    <color name="red_Bar">#a21318</color>
+
+    <!-- Red Tones -->
+    <color name="red_Primary">#d52e35</color>
+    <color name="red_Secundary">#a22228</color>
+
+    <!-- Gray Tones -->
+    <color name="gray_Primary">#6a7474</color>
+    <color name="gray_Secundary">#3b4141</color>
+
 </resources>

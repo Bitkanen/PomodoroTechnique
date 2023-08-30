@@ -2,14 +2,14 @@
     <!-- Base application theme. -->
     <style name="Theme.PomodoroTechnique" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorOnBackground">@color/redP</item>
+        <item name="colorOnBackground">@color/red_Primary</item>
         <item name="colorOnPrimary">@color/white</item>
 
         <!-- Secondary brand color. -->
         <item name="colorOnSecondary">@color/black</item>
 
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/red_Bar</item>
+        <item name="android:statusBarColor">@color/transparent_white</item>
         <!-- Customize your theme here. -->
     </style>
 </resources>
