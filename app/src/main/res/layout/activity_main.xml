@@ -12,12 +12,35 @@
               android:text="Pomodoro Technique"
               android:textSize="32dp"
               android:textStyle="bold"
-              android:textColor="@color/white"
+              android:textColor="@color/transparent_white"
               android:shadowColor="@color/black"
               android:fontFamily="@font/coolvetica"
-              android:id="@+id/textView" app:layout_constraintTop_toTopOf="parent"
+              android:id="@+id/titleText" app:layout_constraintTop_toTopOf="parent"
               app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="15dp"
               android:layout_marginStart="30dp"/>
 
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:text="25:00"
+              android:textColor="@color/white"
+              android:textSize="220dp"
+              android:fontFamily="@font/coolvetica_crammed"
+              android:id="@+id/timerPomodoro"
+              app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="48dp"
+              app:layout_constraintTop_toBottomOf="@+id/titleText" app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageView android:layout_width="50dp" android:layout_height="50dp"
+               android:id="@+id/imgPom"
+               android:src="@drawable/pomodoro_ico"
+               app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="48dp"
+               app:layout_constraintTop_toBottomOf="@+id/titleText" android:layout_marginStart="28dp"/>
+    <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Start"
+            android:fontFamily="@font/coolvetica"
+            android:textSize="22dp"
+            android:background="@color/red_Bar"
+            android:id="@+id/btnStart" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="21dp" app:layout_constraintTop_toBottomOf="@+id/timerPomodoro"
+            app:layout_constraintEnd_toEndOf="parent" android:backgroundTint="@color/black"
+    />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
