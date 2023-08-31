@@ -12,10 +12,14 @@
 
     <!-- Red Tones -->
     <color name="red_Primary">#d52e35</color>
-    <color name="red_Secundary">#a22228</color>
+    <color name="red_Secondary">#a22228</color>
 
     <!-- Gray Tones -->
-    <color name="gray_Primary">#6a7474</color>
-    <color name="gray_Secundary">#3b4141</color>
+    <color name="gray_Primary">#A9A9A9</color>
+    <color name="gray_Secondary">#757575</color>
+
+    <!-- Green Tones -->
+    <color name="green_Primary">#2AD5A3</color>
+    <color name="green_Secondary">#1fa27b</color>
 
 </resources>
