@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Vibrator
 import android.content.Intent
 import android.content.IntentFilter
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -16,19 +17,25 @@ class MainActivity : AppCompatActivity() {
     //Pomodoro Time: 1500, Break Time: 600
 
     //Variables
-    private lateinit var binding: ActivityMainBinding   //Declared Binding
+    private lateinit var binding: ActivityMainBinding   //Declaring Binding
     private var timerStarted = false    //Bool of the timer if it started
     private var timerBreak = false      //Bool of the timer if it is a Break
-    private lateinit var serviceIntent: Intent  //Declared Intent Service
+    private lateinit var serviceIntent: Intent  //Declaring Intent Service
     private var time = 1500.0   //Time Timer
+    private lateinit var soundStart :MediaPlayer    //Declaring Start Sound
+    private lateinit var soundEnd :MediaPlayer      //Declaring End Sound
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)   //Initializing Binging Variable
         setContentView(binding.root)
 
+        soundStart = MediaPlayer.create(this, R.raw.start_sound)    //Initializing Start Sound
+        soundEnd = MediaPlayer.create(this, R.raw.end_sound)    //Initializing End Sound
+
         binding.imageview.setBackgroundResource(R.drawable.pomodoro_ico_gray)   //Set the Image of the logo
-        binding.btnStart.setOnClickListener { startStopTimer()}     //Starts the Timer
+        binding.btnStart.setOnClickListener { startStopTimer() }     //Starts the Timer
         binding.btnRestart.setOnClickListener { restartTimer() }    //Restart the Timer
 
         serviceIntent = Intent(applicationContext, TimerService::class.java)    //Initializing Intent Service Variable
@@ -37,6 +44,8 @@ class MainActivity : AppCompatActivity() {
 
     //Function to Stop and Start the Timer
     private fun startStopTimer() {
+
+        soundStart.start()
 
         if (timerStarted) stopTimer()
         else if (timerStarted == false && timerBreak) breakTimer()
@@ -47,6 +56,7 @@ class MainActivity : AppCompatActivity() {
     private fun restartTimer() {
         stopService(serviceIntent)  //Stops the Service (TimerService)
         timerStarted = false
+        timerBreak = false
         time = 1500.0   //Set the Timer to Default
 
         //region Change of Visual Objects When Restart the Timer
@@ -110,17 +120,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val updateTime: BroadcastReceiver = object : BroadcastReceiver() {
+
         override fun onReceive(context: Context, intent: Intent) {
+
             time = intent.getDoubleExtra(TimerService.TIME_EXTRA, 0.0)
             binding.timerPomodoro.text = getTimeStringFromDouble(time)
 
             if (time == 0.0 && timerBreak == false){
+                soundEnd.start()
                 vibrate()
                 stopService(serviceIntent)  //Stops the Service (TimerService)
                 time = 600.0    //Set the timer to a Break
                 breakTimer()
             }
             if(time == 0.0 && timerBreak == true){
+                soundEnd.start()
                 vibrate()
                 stopService(serviceIntent)  //Stops the Service (TimerService)
                 time = 1500.0      //Set the Timer to Default
